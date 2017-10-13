@@ -14,8 +14,16 @@ object P08 {
     }
     compressR(Nil, ls)
   }
+
+  def compressFunctional[A](ls: List[A]): List[A] =
+    ls.foldRight(List[A]()) { (h, r) =>
+      if (r.isEmpty || r.head != h) h :: r
+      else r
+    }
+
   def main(args: Array[String]) = {
     println(compressRecursive(List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e)))
     println(compressTailRecursive(List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e)))
+    println(compressFunctional(List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e)))
   }
 }
